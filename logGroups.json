@@ -1,0 +1,343 @@
+{
+    "logGroups": [
+        {
+            "logGroupName": "/aws/codebuild/build-casino-admin",
+            "creationTime": 1737377073028,
+            "metricFilterCount": 0,
+            "arn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/codebuild/build-casino-admin:*",
+            "storedBytes": 12390,
+            "logGroupClass": "STANDARD",
+            "logGroupArn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/codebuild/build-casino-admin"
+        },
+        {
+            "logGroupName": "/aws/codebuild/playlogiq",
+            "creationTime": 1736789386058,
+            "retentionInDays": 14,
+            "metricFilterCount": 0,
+            "arn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/codebuild/playlogiq:*",
+            "storedBytes": 6997678,
+            "logGroupClass": "STANDARD",
+            "logGroupArn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/codebuild/playlogiq"
+        },
+        {
+            "logGroupName": "/aws/lambda/clean-cloudflare-cache",
+            "creationTime": 1683555329131,
+            "retentionInDays": 14,
+            "metricFilterCount": 0,
+            "arn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/lambda/clean-cloudflare-cache:*",
+            "storedBytes": 0,
+            "logGroupClass": "STANDARD",
+            "logGroupArn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/lambda/clean-cloudflare-cache"
+        },
+        {
+            "logGroupName": "/aws/lambda/lambda-asg-updater",
+            "creationTime": 1685706564995,
+            "retentionInDays": 14,
+            "metricFilterCount": 0,
+            "arn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/lambda/lambda-asg-updater:*",
+            "storedBytes": 0,
+            "logGroupClass": "STANDARD",
+            "logGroupArn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/lambda/lambda-asg-updater"
+        },
+        {
+            "logGroupName": "/aws/lambda/lambda-athena-logs",
+            "creationTime": 1683824864642,
+            "retentionInDays": 14,
+            "metricFilterCount": 0,
+            "arn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/lambda/lambda-athena-logs:*",
+            "storedBytes": 0,
+            "logGroupClass": "STANDARD",
+            "logGroupArn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/lambda/lambda-athena-logs"
+        },
+        {
+            "logGroupName": "/aws/lambda/lambda-clean-cloudflare-cache",
+            "creationTime": 1693390499227,
+            "retentionInDays": 14,
+            "metricFilterCount": 0,
+            "arn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/lambda/lambda-clean-cloudflare-cache:*",
+            "storedBytes": 22009,
+            "logGroupClass": "STANDARD",
+            "logGroupArn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/lambda/lambda-clean-cloudflare-cache"
+        },
+        {
+            "logGroupName": "/aws/lambda/lambda-cleanoldamis-autoscaling_backoffice",
+            "creationTime": 1673361422094,
+            "retentionInDays": 14,
+            "metricFilterCount": 0,
+            "arn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/lambda/lambda-cleanoldamis-autoscaling_backoffice:*",
+            "storedBytes": 1346,
+            "logGroupClass": "STANDARD",
+            "logGroupArn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/lambda/lambda-cleanoldamis-autoscaling_backoffice"
+        },
+        {
+            "logGroupName": "/aws/lambda/lambda-cleanoldamis-autoscaling_betmaker",
+            "creationTime": 1673361421445,
+            "retentionInDays": 14,
+            "metricFilterCount": 0,
+            "arn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/lambda/lambda-cleanoldamis-autoscaling_betmaker:*",
+            "storedBytes": 971,
+            "logGroupClass": "STANDARD",
+            "logGroupArn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/lambda/lambda-cleanoldamis-autoscaling_betmaker"
+        },
+        {
+            "logGroupName": "/aws/lambda/lambda-cleanoldamis-autoscaling_casino",
+            "creationTime": 1698135024937,
+            "retentionInDays": 14,
+            "metricFilterCount": 0,
+            "arn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/lambda/lambda-cleanoldamis-autoscaling_casino:*",
+            "storedBytes": 1205,
+            "logGroupClass": "STANDARD",
+            "logGroupArn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/lambda/lambda-cleanoldamis-autoscaling_casino"
+        },
+        {
+            "logGroupName": "/aws/lambda/lambda-elb-spot-handler",
+            "creationTime": 1692225176466,
+            "retentionInDays": 14,
+            "metricFilterCount": 0,
+            "arn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/lambda/lambda-elb-spot-handler:*",
+            "storedBytes": 856837,
+            "logGroupClass": "STANDARD",
+            "logGroupArn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/lambda/lambda-elb-spot-handler"
+        },
+        {
+            "logGroupName": "/aws/lambda/lambda-playlogiq-domain-maintenance",
+            "creationTime": 1726581756204,
+            "retentionInDays": 14,
+            "metricFilterCount": 0,
+            "arn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/lambda/lambda-playlogiq-domain-maintenance:*",
+            "storedBytes": 0,
+            "logGroupClass": "STANDARD",
+            "logGroupArn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/lambda/lambda-playlogiq-domain-maintenance"
+        },
+        {
+            "logGroupName": "/aws/lambda/lambda-schedule-playlogiq-tinker",
+            "creationTime": 1678132832303,
+            "retentionInDays": 14,
+            "metricFilterCount": 0,
+            "arn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/lambda/lambda-schedule-playlogiq-tinker:*",
+            "storedBytes": 7983,
+            "logGroupClass": "STANDARD",
+            "logGroupArn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/lambda/lambda-schedule-playlogiq-tinker"
+        },
+        {
+            "logGroupName": "/aws/lambda/lambda-start-environments",
+            "creationTime": 1735570651317,
+            "retentionInDays": 14,
+            "metricFilterCount": 0,
+            "arn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/lambda/lambda-start-environments:*",
+            "storedBytes": 29616,
+            "logGroupClass": "STANDARD",
+            "logGroupArn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/lambda/lambda-start-environments"
+        },
+        {
+            "logGroupName": "/aws/lambda/lambda-stop-environments",
+            "creationTime": 1735570651311,
+            "retentionInDays": 14,
+            "metricFilterCount": 0,
+            "arn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/lambda/lambda-stop-environments:*",
+            "storedBytes": 10239,
+            "logGroupClass": "STANDARD",
+            "logGroupArn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/lambda/lambda-stop-environments"
+        },
+        {
+            "logGroupName": "/aws/rds/cluster/backoffice-pro-cluster/error",
+            "creationTime": 1716889248057,
+            "retentionInDays": 30,
+            "metricFilterCount": 0,
+            "arn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/rds/cluster/backoffice-pro-cluster/error:*",
+            "storedBytes": 6413211301,
+            "logGroupClass": "STANDARD",
+            "logGroupArn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/rds/cluster/backoffice-pro-cluster/error"
+        },
+        {
+            "logGroupName": "/aws/rds/cluster/backoffice-pro-cluster/slowquery",
+            "creationTime": 1716897808160,
+            "retentionInDays": 30,
+            "metricFilterCount": 0,
+            "arn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/rds/cluster/backoffice-pro-cluster/slowquery:*",
+            "storedBytes": 24930063,
+            "logGroupClass": "STANDARD",
+            "logGroupArn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/rds/cluster/backoffice-pro-cluster/slowquery"
+        },
+        {
+            "logGroupName": "/aws/rds/cluster/casino-backoffice-bbdd/error",
+            "creationTime": 1693479961704,
+            "retentionInDays": 30,
+            "metricFilterCount": 0,
+            "arn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/rds/cluster/casino-backoffice-bbdd/error:*",
+            "storedBytes": 22868455619,
+            "logGroupClass": "STANDARD",
+            "logGroupArn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/rds/cluster/casino-backoffice-bbdd/error"
+        },
+        {
+            "logGroupName": "/aws/rds/cluster/casino-backoffice-bbdd/slowquery",
+            "creationTime": 1693508542266,
+            "retentionInDays": 30,
+            "metricFilterCount": 0,
+            "arn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/rds/cluster/casino-backoffice-bbdd/slowquery:*",
+            "storedBytes": 1325266,
+            "logGroupClass": "STANDARD",
+            "logGroupArn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/rds/cluster/casino-backoffice-bbdd/slowquery"
+        },
+        {
+            "logGroupName": "/aws/rds/cluster/playlogiq-cluster/error",
+            "creationTime": 1672226787385,
+            "retentionInDays": 30,
+            "metricFilterCount": 0,
+            "arn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/rds/cluster/playlogiq-cluster/error:*",
+            "storedBytes": 79096869810,
+            "logGroupClass": "STANDARD",
+            "logGroupArn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/rds/cluster/playlogiq-cluster/error"
+        },
+        {
+            "logGroupName": "/aws/rds/cluster/playlogiq-cluster/slowquery",
+            "creationTime": 1691713260804,
+            "retentionInDays": 30,
+            "metricFilterCount": 0,
+            "arn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/rds/cluster/playlogiq-cluster/slowquery:*",
+            "storedBytes": 12992195,
+            "logGroupClass": "STANDARD",
+            "logGroupArn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/rds/cluster/playlogiq-cluster/slowquery"
+        },
+        {
+            "logGroupName": "/aws/rds/instance/backoffice-pro-instance-0/error",
+            "creationTime": 1735574800131,
+            "retentionInDays": 30,
+            "metricFilterCount": 0,
+            "arn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/rds/instance/backoffice-pro-instance-0/error:*",
+            "storedBytes": 0,
+            "logGroupClass": "STANDARD",
+            "logGroupArn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/rds/instance/backoffice-pro-instance-0/error"
+        },
+        {
+            "logGroupName": "/aws/rds/instance/backoffice-pro-instance-1/error",
+            "creationTime": 1735574800172,
+            "retentionInDays": 30,
+            "metricFilterCount": 0,
+            "arn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/rds/instance/backoffice-pro-instance-1/error:*",
+            "storedBytes": 0,
+            "logGroupClass": "STANDARD",
+            "logGroupArn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/rds/instance/backoffice-pro-instance-1/error"
+        },
+        {
+            "logGroupName": "/aws/rds/instance/casino-backoffice-instance-0/error",
+            "creationTime": 1735574800220,
+            "retentionInDays": 30,
+            "metricFilterCount": 0,
+            "arn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/rds/instance/casino-backoffice-instance-0/error:*",
+            "storedBytes": 0,
+            "logGroupClass": "STANDARD",
+            "logGroupArn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/rds/instance/casino-backoffice-instance-0/error"
+        },
+        {
+            "logGroupName": "/aws/rds/instance/casino-backoffice-instance-1/error",
+            "creationTime": 1701756872046,
+            "retentionInDays": 30,
+            "metricFilterCount": 0,
+            "arn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/rds/instance/casino-backoffice-instance-1/error:*",
+            "storedBytes": 0,
+            "logGroupClass": "STANDARD",
+            "logGroupArn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/rds/instance/casino-backoffice-instance-1/error"
+        },
+        {
+            "logGroupName": "/aws/rds/instance/playlogiq-instance-1/error",
+            "creationTime": 1695288074709,
+            "retentionInDays": 30,
+            "metricFilterCount": 0,
+            "arn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/rds/instance/playlogiq-instance-1/error:*",
+            "storedBytes": 0,
+            "logGroupClass": "STANDARD",
+            "logGroupArn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/rds/instance/playlogiq-instance-1/error"
+        },
+        {
+            "logGroupName": "/aws/rds/instance/playlogiq-instance/error",
+            "creationTime": 1735574799796,
+            "retentionInDays": 30,
+            "metricFilterCount": 0,
+            "arn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/rds/instance/playlogiq-instance/error:*",
+            "storedBytes": 0,
+            "logGroupClass": "STANDARD",
+            "logGroupArn": "arn:aws:logs:eu-south-1:087158905062:log-group:/aws/rds/instance/playlogiq-instance/error"
+        },
+        {
+            "logGroupName": "backoffice",
+            "creationTime": 1672226587128,
+            "retentionInDays": 90,
+            "metricFilterCount": 3,
+            "arn": "arn:aws:logs:eu-south-1:087158905062:log-group:backoffice:*",
+            "storedBytes": 18098794092,
+            "logGroupClass": "STANDARD",
+            "logGroupArn": "arn:aws:logs:eu-south-1:087158905062:log-group:backoffice"
+        },
+        {
+            "logGroupName": "backoffice-redis",
+            "creationTime": 1725980426887,
+            "retentionInDays": 30,
+            "metricFilterCount": 0,
+            "arn": "arn:aws:logs:eu-south-1:087158905062:log-group:backoffice-redis:*",
+            "storedBytes": 3738,
+            "logGroupClass": "STANDARD",
+            "logGroupArn": "arn:aws:logs:eu-south-1:087158905062:log-group:backoffice-redis"
+        },
+        {
+            "logGroupName": "betmaker",
+            "creationTime": 1672226531232,
+            "retentionInDays": 30,
+            "metricFilterCount": 3,
+            "arn": "arn:aws:logs:eu-south-1:087158905062:log-group:betmaker:*",
+            "storedBytes": 44851546251,
+            "logGroupClass": "STANDARD",
+            "logGroupArn": "arn:aws:logs:eu-south-1:087158905062:log-group:betmaker"
+        },
+        {
+            "logGroupName": "betmaker-apache",
+            "creationTime": 1692076949729,
+            "retentionInDays": 30,
+            "metricFilterCount": 0,
+            "arn": "arn:aws:logs:eu-south-1:087158905062:log-group:betmaker-apache:*",
+            "storedBytes": 200102,
+            "logGroupClass": "STANDARD",
+            "logGroupArn": "arn:aws:logs:eu-south-1:087158905062:log-group:betmaker-apache"
+        },
+        {
+            "logGroupName": "betmaker-cron",
+            "creationTime": 1692076943851,
+            "retentionInDays": 30,
+            "metricFilterCount": 0,
+            "arn": "arn:aws:logs:eu-south-1:087158905062:log-group:betmaker-cron:*",
+            "storedBytes": 1548430805,
+            "logGroupClass": "STANDARD",
+            "logGroupArn": "arn:aws:logs:eu-south-1:087158905062:log-group:betmaker-cron"
+        },
+        {
+            "logGroupName": "betmaker-redis",
+            "creationTime": 1717659561160,
+            "retentionInDays": 30,
+            "metricFilterCount": 0,
+            "arn": "arn:aws:logs:eu-south-1:087158905062:log-group:betmaker-redis:*",
+            "storedBytes": 59239535,
+            "logGroupClass": "STANDARD",
+            "logGroupArn": "arn:aws:logs:eu-south-1:087158905062:log-group:betmaker-redis"
+        },
+        {
+            "logGroupName": "casino",
+            "creationTime": 1699260888540,
+            "retentionInDays": 30,
+            "metricFilterCount": 2,
+            "arn": "arn:aws:logs:eu-south-1:087158905062:log-group:casino:*",
+            "storedBytes": 388132899921,
+            "logGroupClass": "STANDARD",
+            "logGroupArn": "arn:aws:logs:eu-south-1:087158905062:log-group:casino"
+        },
+        {
+            "logGroupName": "casino-admin",
+            "creationTime": 1699260896778,
+            "retentionInDays": 30,
+            "metricFilterCount": 0,
+            "arn": "arn:aws:logs:eu-south-1:087158905062:log-group:casino-admin:*",
+            "storedBytes": 109709786,
+            "logGroupClass": "STANDARD",
+            "logGroupArn": "arn:aws:logs:eu-south-1:087158905062:log-group:casino-admin"
+        }
+    ]
+}

@@ -1,0 +1,11 @@
+# Ignore log files in repository root
+/*.log
+
+# Ignore chunked logs under split/
+/split/*.log
+/split/*.log.processed
+
+# Local run artifacts (optional; safe to ignore)
+/parse_chunks.log
+/credentials
+/credentials_*

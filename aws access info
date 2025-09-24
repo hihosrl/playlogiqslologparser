@@ -1,0 +1,7 @@
+query def:
+
+90d98ab2-c90b-4c34-9b6b-18210204856d
+slow queries analisys/slow query aggregations by day
+
+per rigenerare mfa
+aws sts get-session-token --serial-number arn:aws:iam::087158905062:mfa/p.tozzi@playlogiq.com --token-code 171281 --duration-seconds 129600

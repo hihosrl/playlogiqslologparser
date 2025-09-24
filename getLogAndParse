@@ -1,0 +1,105 @@
+<?php
+
+// 1) Connect to DB via PDO
+$pdo = new PDO("mysql:host=localhost;dbname=plqaylogiq;charset=utf8mb4","plq","plq");
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+$stmt = $pdo->query("SELECT MAX(log_time) AS lastTime FROM slow_query_log");
+$row  = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+
+
+$lastTimeLocal = $row['lastTime']; 
+
+
+$dtLocal = new DateTime($lastTimeLocal, new DateTimeZone('Europe/Berlin')); // or whichever local TZ
+$dtLocal->setTimezone(new DateTimeZone('UTC'));
+$lastTimeUTC = $dtLocal->format('Y-m-d H:i:s');
+
+
+echo "\nLast row in db: ".$lastTimeLocal."\n";
+
+$nowUTC = new DateTime('now', new DateTimeZone('UTC'));
+$lastUTC = new DateTime($lastTimeUTC, new DateTimeZone('UTC'));
+
+$interval = $nowUTC->diff($lastUTC);
+
+// This gives a DateInterval. Convert to hours (approx).
+// For a rough integer value, do:
+$hoursDiff = (int) $interval->h + ($interval->days * 24);
+
+// If you want some overlap, add 1 hour to that difference
+$sinceHours = $hoursDiff + 1;
+
+echo "I'm fetching logs since {$sinceHours} hours in the past.\n";
+
+
+// Define the clusters and the corresponding AWS log group and output file.
+$clusters = [
+    "BACKOFFICE" => [
+        "logGroup" => "/aws/rds/cluster/backoffice-pro-cluster/slowquery",
+        "logFile"  => "backoffice_slow.log"
+    ],
+    "CASINO" => [
+        "logGroup" => "/aws/rds/cluster/casino-backoffice-bbdd/slowquery",
+        "logFile"  => "casino_slow.log"
+    ],
+    "BETMAKER" => [
+        "logGroup" => "/aws/rds/cluster/playlogiq-cluster/slowquery",
+        "logFile"  => "betmaker_slow.log"
+    ]
+];
+
+/**
+ * Function to trigger 2FA renewal.
+ * Implement the logic here to renew your 2FA (e.g., calling an external script or notifying you).
+ */
+function renew2fa() {
+    // Example implementation: simply output a message.
+    echo "2FA renewal triggered!\n";
+    // You could also call a shell command, send an email, etc.
+}
+
+// Loop through each cluster
+foreach ($clusters as $name => $info) {
+    echo "\n\n$name\n";
+
+    // Build the AWS CLI command using sprintf.
+    $cmd = sprintf(
+        'aws logs tail %s --profile mfa --since %dh > %s',
+        $info['logGroup'],
+        $sinceHours,
+        $info['logFile']
+    );
+    echo "Executing: $cmd\n";
+
+    // Execute the command; capture both standard output and error output.
+    $output = shell_exec($cmd . " 2>&1");
+    echo "Output: $output\n";
+
+    // Check for error patterns (adjust these keywords based on your expected AWS error messages)
+    if (stripos($output, 'error') !== false || stripos($output, 'mfa') !== false) {
+        echo "Error encountered for $name: $output\n";
+        // Trigger the 2FA renewal function.
+        renew2fa();
+        // Optionally, break out of the loop to stop processing further clusters:
+        break;
+        exit;
+    }
+}
+
+// Parsing new downloaded files
+
+ echo "Parsing new downloaded logs and inserting in db table\n";
+ $output = shell_exec("php logParser3" . " 2>&1");
+ echo "Output: $output\n";
+
+    // Check for error patterns (adjust these keywords based on your expected AWS error messages)
+    if (stripos($output, 'error') !== false){
+    	echo "Error in parsing function";
+    }
+
+
+
+?>

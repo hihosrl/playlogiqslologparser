@@ -1,0 +1,259 @@
+<?php
+
+// 1) Connect to DB via PDO
+$pdo = new PDO("mysql:host=localhost;dbname=plqaylogiq;charset=utf8mb4","plq","plq");
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+// 2) Read the file contents
+$log = implode('', file('betmaker_slow.log'));
+$log.= implode('', file('casino_slow.log'));
+$log.= implode('', file('backoffice_slow.log'));
+
+// 3) Regex to capture queries
+//    [^;]+ up to semicolon, group 1: log line
+//    group 2: optional SET line
+//    group 3: actual query
+preg_match_all('/(^[\d]{4}-[\d]{2}-[\d]{2}[^;]+;)(\nSET ti[^;]+;|)([^;]*);/m', $log, $matches, PREG_SET_ORDER);
+
+// 4) Prepare an INSERT statement for repeated use
+$sql = "INSERT IGNORE INTO slow_query_log (
+    log_line_timestamp,
+    instance,
+    log_time,
+    user_host,
+    connection_id,
+    query_time,
+    lock_time,
+    rows_sent,
+    rows_examined,
+    thread_id,
+    errno,
+    killed,
+    bytes_received,
+    bytes_sent,
+    read_first,
+    read_last,
+    read_key,
+    read_next,
+    read_prev,
+    read_rnd,
+    read_rnd_next,
+    sort_merge_passes,
+    sort_range_count,
+    sort_rows,
+    sort_scan_count,
+    created_tmp_disk_tables,
+    created_tmp_tables,
+    start_time,
+    end_time,
+    set_timestamp,
+    query,
+    qtype,
+    qtypemd5
+) VALUES (
+    :log_line_timestamp,
+    :instance,
+    :log_time,
+    :user_host,
+    :connection_id,
+    :query_time,
+    :lock_time,
+    :rows_sent,
+    :rows_examined,
+    :thread_id,
+    :errno,
+    :killed,
+    :bytes_received,
+    :bytes_sent,
+    :read_first,
+    :read_last,
+    :read_key,
+    :read_next,
+    :read_prev,
+    :read_rnd,
+    :read_rnd_next,
+    :sort_merge_passes,
+    :sort_range_count,
+    :sort_rows,
+    :sort_scan_count,
+    :created_tmp_disk_tables,
+    :created_tmp_tables,
+    :start_time,
+    :end_time,
+    :set_timestamp,
+    :query,
+    :qtype,
+    :qtypemd5
+)";
+$stmt = $pdo->prepare($sql);
+
+// 4b) Prepare INSERT for query_type_info table
+// We assume a UNIQUE KEY on (qtypemd5, instance).
+// We'll do INSERT IGNORE so duplicates won't cause errors.
+$sqlInfo = "INSERT IGNORE INTO query_type_info (qtypemd5, instance, qtype) 
+            VALUES (:qtypemd5, :instance, :qtype)";
+$infoStmt = $pdo->prepare($sqlInfo);
+
+// 5) Helper functions to parse timestamps, etc.
+function parseLogDatetime($str)
+{
+    // 1) Replace the "T" with a space
+    $str = str_replace('T', ' ', $str);
+
+    // 2) Remove everything from the first 'Z' onward (if present)
+    //    This handles cases like "ZSE", "ZSET", or just "Z"
+    $str = preg_replace('/Z.*/', '', $str);
+
+    // 3) Remove any offset like +00:00 or +03:00
+    $str = preg_replace('/\+\d{2}:\d{2}$/', '', $str);
+
+    // 4) Trim leftover spaces
+    $str = trim($str);
+
+    return empty($str) ? null : $str;
+}
+function parseSetTimestamp($str) {
+    $str = rtrim($str, ";");
+    if (strpos($str, "=") !== false) {
+        [, $val] = explode('=', $str);
+        return (int)$val;
+    }
+    return (int)$str;
+}
+
+// 6) Iterate over all matched queries
+$aTypes = array();
+foreach ($matches as $num => $qdata) {
+    // $qdata[1] => The entire "# Time: ... # Query_time: ..." block
+    // $qdata[2] => Possibly "SET timestamp=...;"
+    // $qdata[3] => The actual SQL query text
+
+    // Cleanup the block to parse out the key/value pairs
+    $a0 = preg_replace('/[#]/', '', $qdata[1]);
+    $a0 = preg_replace('/\n/', '', $a0);
+    $a0 = preg_replace('/use [\w]+/', '', $a0);
+    $a0 = preg_replace('/[ ]+@[ ]+/', '@', $a0);
+    $a0 = preg_replace('/: /', '=', $a0);
+    $a0 = preg_replace('/[ ]+/', '|', $a0);
+
+    // Explode on "|"
+    $a1 = explode('|', $a0);
+    $record = array();
+    foreach ($a1 as $v) {
+        // If it looks like "Key=Value"
+        if (strpos($v, '=') !== false) {
+            [$key, $val] = explode('=', $v, 2);
+            $record[$key] = $val;
+        } else {
+            // It's just a positional value (e.g. the date/time at the start)
+            $record[] = $v;
+        }
+    }
+
+    // Now do the replacement to get normalized query
+    $pattern   = '/(\b\d+(?:\.\d+)?\b|\'[^\']*\'|"[^"]*")/';
+    $converted = preg_replace($pattern, '?', $qdata[3]);
+    $md5       = md5(trim($converted));
+
+    $record['query']    = trim($qdata[3]);
+    $record['qtype']    = trim($converted);
+    $record['qtypemd5'] = $md5;
+
+    // Keep track of how many times we see each normalized query
+    if (!isset($aTypes[$md5])) {
+        $aTypes[$md5] = 1;
+    } else {
+        $aTypes[$md5] += 1;
+    }
+
+    // Debug: print the record to console
+    //print_r($record);
+
+    // -- EXTRACT Values for DB Insert --
+    // Adjust indices or keys as needed based on how you parsed them
+    // For example, your array might look like:
+    // [0] => "2025-02-05T18:17:32.470000+00:00"
+    // [1] => "playlogiq-instance-1"
+    // ["Time"] => "2025-02-05T18:17:32.470270Z"
+    // ...
+    $log_line_timestamp = parseLogDatetime($record[0] ?? '');
+    $instance           = $record[1] ?? '';
+    $log_time           = parseLogDatetime($record['Time'] ?? '');
+    $user_host          = $record['User@Host'] ?? '';
+    $connection_id      = (int)($record['Id'] ?? 0);
+    $query_time         = (float)($record['Query_time'] ?? 0);
+    $lock_time          = (float)($record['Lock_time'] ?? 0);
+    $rows_sent          = (int)($record['Rows_sent'] ?? 0);
+    $rows_examined      = (int)($record['Rows_examined'] ?? 0);
+    $thread_id          = (int)($record['Thread_id'] ?? 0);
+    $errno              = (int)($record['Errno'] ?? 0);
+    $killed             = (int)($record['Killed'] ?? 0);
+    $bytes_received     = (int)($record['Bytes_received'] ?? 0);
+    $bytes_sent         = (int)($record['Bytes_sent'] ?? 0);
+    $read_first         = (int)($record['Read_first'] ?? 0);
+    $read_last          = (int)($record['Read_last'] ?? 0);
+    $read_key           = (int)($record['Read_key'] ?? 0);
+    $read_next          = (int)($record['Read_next'] ?? 0);
+    $read_prev          = (int)($record['Read_prev'] ?? 0);
+    $read_rnd           = (int)($record['Read_rnd'] ?? 0);
+    $read_rnd_next      = (int)($record['Read_rnd_next'] ?? 0);
+    $sort_merge_passes  = (int)($record['Sort_merge_passes'] ?? 0);
+    $sort_range_count   = (int)($record['Sort_range_count'] ?? 0);
+    $sort_rows          = (int)($record['Sort_rows'] ?? 0);
+    $sort_scan_count    = (int)($record['Sort_scan_count'] ?? 0);
+    $created_tmp_disk_tables = (int)($record['Created_tmp_disk_tables'] ?? 0);
+    $created_tmp_tables       = (int)($record['Created_tmp_tables'] ?? 0);
+    $start_time         = parseLogDatetime($record['Start'] ?? '');
+    $end_time           = parseLogDatetime($record['End'] ?? '');
+    $set_timestamp      = parseSetTimestamp($record['timestamp'] ?? '');
+    $query             = $record['query'];
+    $qtype             = $record['qtype'];
+    $qtypemd5          = $record['qtypemd5'];
+
+    // 7) Insert into database
+    $stmt->execute([
+      ':log_line_timestamp' => $log_line_timestamp,
+      ':instance'           => $instance,
+      ':log_time'           => $log_time,
+      ':user_host'          => $user_host,
+      ':connection_id'      => $connection_id,
+      ':query_time'         => $query_time,
+      ':lock_time'          => $lock_time,
+      ':rows_sent'          => $rows_sent,
+      ':rows_examined'      => $rows_examined,
+      ':thread_id'          => $thread_id,
+      ':errno'              => $errno,
+      ':killed'             => $killed,
+      ':bytes_received'     => $bytes_received,
+      ':bytes_sent'         => $bytes_sent,
+      ':read_first'         => $read_first,
+      ':read_last'          => $read_last,
+      ':read_key'           => $read_key,
+      ':read_next'          => $read_next,
+      ':read_prev'          => $read_prev,
+      ':read_rnd'           => $read_rnd,
+      ':read_rnd_next'      => $read_rnd_next,
+      ':sort_merge_passes'  => $sort_merge_passes,
+      ':sort_range_count'   => $sort_range_count,
+      ':sort_rows'          => $sort_rows,
+      ':sort_scan_count'    => $sort_scan_count,
+      ':created_tmp_disk_tables' => $created_tmp_disk_tables,
+      ':created_tmp_tables'       => $created_tmp_tables,
+      ':start_time'         => $start_time,
+      ':end_time'           => $end_time,
+      ':set_timestamp'      => $set_timestamp,
+      ':query'              => $query,
+      ':qtype'              => $qtype,
+      ':qtypemd5'           => $qtypemd5,
+    ]);
+
+    // 8) Also insert into query_type_info (if not present)
+    $infoStmt->execute([
+      ':qtypemd5' => $qtypemd5,
+      ':instance' => $instance,
+      ':qtype'    => $qtype,
+    ]);
+}
+
+// Finally, if you want to see how many times each normalized query was found:
+print_r($aTypes);

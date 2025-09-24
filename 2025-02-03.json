@@ -1,0 +1,147 @@
+{
+    "results": [
+        [
+            {
+                "field": "day",
+                "value": "2025-02-03 00:00:00.000"
+            },
+            {
+                "field": "BM16",
+                "value": "0"
+            },
+            {
+                "field": "BM14",
+                "value": "7"
+            },
+            {
+                "field": "BM14_2",
+                "value": "0"
+            },
+            {
+                "field": "Select_Sum_Case_When_Type",
+                "value": "0"
+            },
+            {
+                "field": "Update_Sports_Feeds_Event_Start",
+                "value": "0"
+            },
+            {
+                "field": "Update_Users_Last_Activity",
+                "value": "0"
+            },
+            {
+                "field": "Select_Sum_Provider_ID_Not_In",
+                "value": "0"
+            },
+            {
+                "field": "Select_Users_by_Skin_ID",
+                "value": "0"
+            },
+            {
+                "field": "Select_Bonus_Payments",
+                "value": "106"
+            },
+            {
+                "field": "Count_Sport_Jackpot_Tickets",
+                "value": "650"
+            },
+            {
+                "field": "Select_Sum_Business_Report",
+                "value": "0"
+            },
+            {
+                "field": "Select_User_by_ID",
+                "value": "0"
+            },
+            {
+                "field": "BM03",
+                "value": "0"
+            },
+            {
+                "field": "BM04",
+                "value": "0"
+            },
+            {
+                "field": "BM06",
+                "value": "0"
+            },
+            {
+                "field": "Count_Users_by_Level",
+                "value": "26"
+            },
+            {
+                "field": "count_bonus_payments",
+                "value": "28"
+            },
+            {
+                "field": "Update_Users_Sport_Token",
+                "value": "0"
+            },
+            {
+                "field": "Count_Commission_Cashback_Payment",
+                "value": "4"
+            },
+            {
+                "field": "Select_Orders_with_Affiliates",
+                "value": "0"
+            },
+            {
+                "field": "Update_Users_Last_Login",
+                "value": "0"
+            },
+            {
+                "field": "Select_Logiq_Feed_Matches",
+                "value": "17"
+            },
+            {
+                "field": "Select_Users_by_Parent_ID",
+                "value": "5"
+            },
+            {
+                "field": "Count_Commission_Cashback_Promotions",
+                "value": "1"
+            },
+            {
+                "field": "Select_Sum_Business_Report_with_Currency",
+                "value": "1"
+            },
+            {
+                "field": "Select_Concat_User_mobilePrefix",
+                "value": "1"
+            },
+            {
+                "field": "Select_Sport_Jeckpots",
+                "value": "0"
+            },
+            {
+                "field": "count_aggregate_sprot_jackpot_tickets",
+                "value": "0"
+            },
+            {
+                "field": "InsertOrdini",
+                "value": "0"
+            },
+            {
+                "field": "Insert_into_Markets",
+                "value": "0"
+            },
+            {
+                "field": "Update_on_Duplicate_Key",
+                "value": "0"
+            },
+            {
+                "field": "DBeaver_Queries",
+                "value": "0"
+            }
+        ]
+    ],
+    "statistics": {
+        "recordsMatched": 1497,
+        "recordsScanned": 5250,
+        "estimatedRecordsSkipped": 0,
+        "bytesScanned": 4844079,
+        "estimatedBytesSkipped": 0,
+        "logGroupsScanned": 3
+    },
+    "status": "Complete"
+}
